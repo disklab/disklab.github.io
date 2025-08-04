@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiskLab 直链下载站</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #151718;
+        }
+
+        .file-card {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 10px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            background-color: #202425;
+            height: 10px;
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            margin-left: 5px;
+            color: #ffffff;
+        }
+
+        .download-sources {
+            display: flex;
+            gap: 10px;
+        }
+
+        .source-btn {
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: background 0.2s, box-shadow 0.2s;
+            box-shadow: 0 1px 2px rgba(77, 157, 255, 0.04);
+            opacity: 0.85;
+            border: none;
+            margin-left: 2px;
+            background-image: url('download.png');
+            background-size: 60% 60%;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .source-btn:hover {
+            opacity: 1;
+        }
+
+        /* 自定义悬浮提示气泡 */
+        .source-btn[data-tooltip]:hover::after,
+        .source-btn[data-tooltip].show-tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            left: 50%;
+            bottom: 120%;
+            transform: translateX(-50%);
+            background: #222;
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 5px;
+            white-space: nowrap;
+            font-size: 13px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            opacity: 1;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .source-btn[data-tooltip]::after {
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .source-btn[data-tooltip]:hover::after,
+        .source-btn[data-tooltip].show-tooltip::after {
+            opacity: 1;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .text-center {
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <div class="text-center"><font size="12">DiskLab 直链下载站</font></div>
+    <div id="file-list">
+        <div class="loading">加载中...</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('list.json')
+                .then(response => response.json())
+                .then(data => {
+                    const fileListContainer = document.getElementById('file-list');
+                    fileListContainer.innerHTML = '';
+
+                    if (data.files && data.files.length > 0) {
+                        data.files.forEach(file => {
+                            const fileCard = document.createElement('div');
+                            fileCard.className = 'file-card';
+
+                            const fileInfo = document.createElement('div');
+                            fileInfo.className = 'file-info';
+
+                            const fileName = document.createElement('div');
+                            fileName.className = 'file-name';
+                            fileName.textContent = file.name;
+                            // 添加 description 悬浮提示
+                            if (file.description) {
+                                fileName.setAttribute('data-tooltip', file.description);
+                            }
+
+                            fileInfo.appendChild(fileName);
+
+                            const downloadSources = document.createElement('div');
+                            downloadSources.className = 'download-sources';
+
+                            if (file.sources && file.sources.length > 0) {
+                                file.sources.forEach(source => {
+                                    const sourceLink = document.createElement('a');
+                                    sourceLink.className = 'source-btn';
+                                    sourceLink.href = source.url;
+                                    sourceLink.target = '_blank';
+                                    sourceLink.setAttribute('data-tooltip', `${source.name}：左键下载，右键复制链接`);
+
+                                    sourceLink.addEventListener('contextmenu', function (e) {
+                                        e.preventDefault();
+                                        navigator.clipboard.writeText(source.url).then(() => {
+                                            sourceLink.classList.add('show-tooltip');
+                                            sourceLink.setAttribute('data-tooltip', '链接已复制！');
+                                            setTimeout(() => {
+                                                sourceLink.classList.remove('show-tooltip');
+                                                sourceLink.setAttribute('data-tooltip', `${source.name}：左键下载，右键复制链接`);
+                                            }, 1200);
+                                        });
+                                    });
+
+                                    downloadSources.appendChild(sourceLink);
+                                });
+                            }
+
+                            fileCard.appendChild(fileInfo);
+                            fileCard.appendChild(downloadSources);
+                            fileListContainer.appendChild(fileCard);
+                        });
+                    } else {
+                        fileListContainer.innerHTML = '<div class="file-card">暂无文件</div>';
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('file-list').innerHTML =
+                        '<div class="file-card">加载失败</div>';
+                });
+        });
+    </script>
+    <script>
+        // 创建全局 tooltip
+        const tooltip = document.createElement('div');
+        tooltip.style.position = 'fixed';
+        tooltip.style.background = '#222';
+        tooltip.style.color = '#fff';
+        tooltip.style.padding = '6px 14px';
+        tooltip.style.borderRadius = '6px';
+        tooltip.style.fontSize = '13px';
+        tooltip.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
+        tooltip.style.whiteSpace = 'pre-line';
+        tooltip.style.pointerEvents = 'none';
+        tooltip.style.zIndex = '9999';
+        tooltip.style.opacity = '0';
+        tooltip.style.transition = 'opacity 0.15s';
+        document.body.appendChild(tooltip);
+
+        document.addEventListener('mouseover', function (e) {
+            const target = e.target.closest('.file-name[data-tooltip]');
+            if (target) {
+                tooltip.textContent = target.getAttribute('data-tooltip');
+                tooltip.style.opacity = '1';
+            }
+        });
+
+        document.addEventListener('mousemove', function (e) {
+            const target = e.target.closest('.file-name[data-tooltip]');
+            if (target) {
+                // 让 tooltip 跟随鼠标，稍微偏移
+                tooltip.style.left = (e.clientX + 12) + 'px';
+                tooltip.style.top = (e.clientY + 16) + 'px';
+            }
+        });
+
+        document.addEventListener('mouseout', function (e) {
+            const target = e.target.closest('.file-name[data-tooltip]');
+            if (target) {
+                tooltip.style.opacity = '0';
+            }
+        });
+    </script>
+</body>
+
+</html>

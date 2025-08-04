@@ -1,0 +1,86 @@
+{
+  "files": [
+    {
+      "name": "我的世界之梦想之城.txt",
+      "description": "本书讲述了作者在minecraft的服务器中从零开始，从一无是处的熊孩子逐渐创建成全服最大村落的故事。每一个细节都生动细致的介绍入微，读者完全可以把本书当成游戏攻略来看。同时，这又是一部轻松搞笑的游戏成长史，读者能够在故事中随处发现共鸣点。本书由真实故事改编而成，里面好多故事的主人公都是真人真事哦，看到自己的名字时可不要惊讶。",
+      "sources": [
+        {
+          "name": "GitHub主站",
+          "url": "https://github.com/disklab/disklab.github.io/releases/download/files/mxzc.txt"
+        },
+        {
+          "name": "镜像站点1",
+          "url": "https://bgithub.xyz/disklab/disklab.github.io/releases/download/files/mxzc.txt"
+        },
+        {
+          "name": "镜像站点2",
+          "url": "https://ghfast.top/https://github.com/disklab/disklab.github.io/releases/download/files/mxzc.txt"
+        },
+        {
+          "name": "镜像站点3",
+          "url": "https://get.2sb.org/https://github.com/disklab/disklab.github.io/releases/download/files/mxzc.txt"
+        },
+        {
+          "name": "infinicloud",
+          "url": "https://kamo.teracloud.jp/share/1291eb23b372c4c2"
+        }
+      ]
+    },
+    {
+      "name": "我的世界之武陵帝国.txt",
+      "description": "我的世界之梦想之城的续集，讲述了在梦想之城的基础上，作者和他的朋友们在minecraft中建立了一个新的帝国，经历了更多的冒险和挑战。",
+      "sources": [
+        {
+          "name": "GitHub主站",
+          "url": "https://github.com/disklab/disklab.github.io/releases/download/files/wldg.txt"
+        },
+        {
+          "name": "镜像站点1",
+          "url": "https://bgithub.xyz/disklab/disklab.github.io/releases/download/files/wldg.txt"
+        },
+        {
+          "name": "镜像站点2",
+          "url": "https://ghfast.top/https://github.com/disklab/disklab.github.io/releases/download/files/wldg.txt"
+        },
+        {
+          "name": "镜像站点3",
+          "url": "https://get.2sb.org/https://github.com/disklab/disklab.github.io/releases/download/files/wldg.txt"
+        },
+        {
+          "name": "infinicloud",
+          "url": "https://kamo.teracloud.jp/share/12919dd78755fef2"
+        }
+      ]
+    },
+    {
+      "name": "冰河末日，我囤了几百亿物资.txt",
+      "description": "作者是 记忆的海 。非常推荐读一下（本站不是最新版，最新版在第一个下载链接），目前还在连载",
+      "sources": [
+        {
+          "name": "最新版在线阅读",
+          "url": "https://www.deqixs.com/xiaoshuo/96/txt.html"
+        },
+        {
+          "name": "GitHub主站",
+          "url": "https://github.com/disklab/disklab.github.io/releases/download/files/bhmr.txt"
+        },
+        {
+          "name": "镜像站点1",
+          "url": "https://bgithub.xyz/disklab/disklab.github.io/releases/download/files/bhmr.txt"
+        },
+        {
+          "name": "镜像站点2",
+          "url": "https://ghfast.top/https://github.com/disklab/disklab.github.io/releases/download/files/bhmr.txt"
+        },
+        {
+          "name": "镜像站点3",
+          "url": "https://get.2sb.org/https://github.com/disklab/disklab.github.io/releases/download/files/bhmr.txt"
+        },
+        {
+          "name": "infinicloud",
+          "url": "https://kamo.teracloud.jp/share/129106f524794658"
+        }
+      ]
+    }
+  ]
+}
